@@ -9,7 +9,7 @@ app.use(express.json());
 // Cấu hình kết nối đến PostgreSQL
 const pool = new Pool({
     user: 'postgres', // Thay thế bằng username của bạn
-    host: '116.103.163.137',
+    host: '123.19.116.10',
     database: 'Invoice',
     password: '1!Ngaycuoicung', // Thay thế bằng password của bạn
     port: 5432,
