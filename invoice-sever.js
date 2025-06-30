@@ -9,7 +9,7 @@ app.use(express.json());
 // Cấu hình kết nối đến PostgreSQL
 const pool = new Pool({
     user: 'postgres', // Thay thế bằng username của bạn
-    host: '123.19.116.10',
+    host: 'localhost',
     database: 'Invoice',
     password: '1!Ngaycuoicung', // Thay thế bằng password của bạn
     port: 5432,
@@ -19,8 +19,11 @@ const pool = new Pool({
 app.get('/Invoice', async (req, res) => {
     let kieu_yeu_cau = req.query.yeucau;//Lấy giá trị thuột tính type của request từ client gán cho biến type
     let so_id = req.query.invid;//lấy số ID của invoice
+    console.log("Đã nhận được yêu cầu từ client");//báo trên log là đã nhận được 1 yêu cầu từ client
     if (kieu_yeu_cau ==='layhoadon') {
         try {
+            
+            
             const result = await pool.query('SELECT invoice_id,invoice_title,customer, SUM(price*quantity) AS amount,invoice_date FROM invoice_table GROUP BY invoice_id,invoice_date,invoice_title,customer;');
             res.json(result.rows);
         } catch (err) {
@@ -44,7 +47,8 @@ app.get('/Invoice', async (req, res) => {
 // Thêm dữ liệu vào bảng invoice_table
 app.post('/Invoice', async (req, res) => {
     const product_array = req.body;
-
+    console.log("Đã nhận được yêu cầu từ client");//báo trên log là đã nhận được 1 yêu cầu từ client
+    res.status(200).send("Đã nhận được yêu cầu");//phản hồi cho client là đã nhận được yêu cầu
     // console.log(product_name,price,quantity);
     try {
         results = [];
