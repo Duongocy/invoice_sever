@@ -19,7 +19,7 @@ const pool = new Pool({
 app.get('/Invoice', async (req, res) => {
     let kieu_yeu_cau = req.query.yeucau;//Lấy giá trị thuột tính type của request từ client gán cho biến type
     let so_id = req.query.invid;//lấy số ID của invoice
-    console.log("Đã nhận được yêu cầu từ client");//báo trên log là đã nhận được 1 yêu cầu từ client
+    console.log("Đã nhận được yêu cầu từ client - ip công khai");//báo trên log là đã nhận được 1 yêu cầu từ client
     if (kieu_yeu_cau ==='layhoadon') {
         try {
             
