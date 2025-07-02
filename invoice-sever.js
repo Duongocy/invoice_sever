@@ -48,7 +48,6 @@ app.get('/Invoice', async (req, res) => {
 app.post('/Invoice', async (req, res) => {
     const product_array = req.body;
     console.log("Đã nhận được yêu cầu từ client");//báo trên log là đã nhận được 1 yêu cầu từ client
-    res.status(200).send("Đã nhận được yêu cầu");//phản hồi cho client là đã nhận được yêu cầu
     // console.log(product_name,price,quantity);
     try {
         results = [];
