@@ -9,7 +9,7 @@ app.use(express.json());
 // Cấu hình kết nối đến PostgreSQL
 const pool = new Pool({
     user: 'postgres', // Thay thế bằng username của bạn
-    host: '113.174.230.86',
+    host: '113.174.230.86',//địa chỉ ip công khai của máy fujitsu không có camera
     database: 'Invoice',
     password: '1!Ngaycuoicung', // Thay thế bằng password của bạn
     port: 5432,
