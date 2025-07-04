@@ -24,7 +24,7 @@ app.get('/Invoice', async (req, res) => {
         try {
             
             
-            const result = await pool.query('SELECT invoice_id,invoice_title,customer, SUM(price*quantity) AS amount,invoice_date FROM invoice_table GROUP BY invoice_id,invoice_date,invoice_title,customer;');
+            const result = await pool.query('SELECT invoice_id,invoice_title,customer, SUM(price*quantity) AS amount,invoice_date FROM invoice_table GROUP BY invoice_id,invoice_date,invoice_title,customer ORDER BY invoice_date DESC;');
             res.json(result.rows);
         } catch (err) {
             console.error(err);
