@@ -17,12 +17,12 @@ const pool = new Pool({
 
 // Lấy dữ liệu từ bảng invoice_table
 app.get('/Invoice', async (req, res) => {
+    console.log("Đã nhận được yêu cầu từ client - ip công khai");//báo trên log là đã nhận được 1 yêu cầu từ client
     let kieu_yeu_cau = req.query.yeucau;//Lấy giá trị thuột tính type của request từ client gán cho biến type
     console.log("Yêu cầu = ",kieu_yeu_cau);
     let userid = req.query.userid; //Lấy ID của user
     console.log("ID = ",userid);
     let so_id = req.query.invid;//lấy số ID của invoice
-    console.log("Đã nhận được yêu cầu từ client - ip công khai");//báo trên log là đã nhận được 1 yêu cầu từ client
     if (kieu_yeu_cau ==='layhoadon') {
         try {
             
@@ -40,7 +40,7 @@ app.get('/Invoice', async (req, res) => {
             query_string = "SELECT product_name,quantity,price, SUM(price*quantity) AS amount FROM invoice_table WHERE invoice_id='" +so_id + "' group by product_name,quantity,price;"; 
             console.log(query_string);
             const result = await pool.query(query_string);
-            res.status(201).json({ message: 'Lấy chi tiết hóa đơn thành công' });
+            res.json(result.rows);
         } catch (err) {
             console.error(err);
             res.status(500).json({ message: 'Không lấy được chi tiết hóa đơn' });
