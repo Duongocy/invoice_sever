@@ -57,7 +57,7 @@ app.post('/Invoice', async (req, res) => {
             for (product of product_array){
                 const {user_id,user_name,invoice_id, invoice_title,invoice_date,customer,product_name,price, quantity} = product;
                 const result = await pool.query(
-                'INSERT INTO invoice_table (user_id, user_name,invoice_id, invoice_title,invoice_date,customer,product_name,price, quantity) VALUES ($1, $2, $3,$4,$5,$6,$7) RETURNING *',
+                'INSERT INTO invoice_table (user_id, user_name,invoice_id, invoice_title,invoice_date,customer,product_name,price, quantity) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9) RETURNING *',
                     [user_id,user_name,invoice_id, invoice_title,invoice_date,customer,product_name,price, quantity]
                 );
                 results.push(result.rows[0]); // Lưu kết quả vào mảng
