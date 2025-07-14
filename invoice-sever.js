@@ -21,9 +21,12 @@ app.get('/Invoice', async (req, res) => {
     let user_id = req.query.userid;
     let so_id = req.query.invid;//lấy số ID của invoice
     console.log("Đã nhận được yêu cầu từ client - ip công khai");//báo trên log là đã nhận được 1 yêu cầu từ client
+    console.log("Kiểu yêu cầu : ",kieu_yeu_cau);
+    console.log("User ID : ",user_id);
     if (kieu_yeu_cau ==='layhoadon') {
         try {            
             query_string = "SELECT invoice_id,invoice_title,customer, SUM(price*quantity) AS amount,invoice_date FROM invoice_table WHERE user_id ='"+user_id+"' GROUP BY invoice_id,invoice_date,invoice_title,customer ORDER BY invoice_date DESC;"
+            console.log("Câu truy vấn : ",query_string);
             const result = await pool.query(query_string);
             res.json(result.rows);
         } catch (err) {
