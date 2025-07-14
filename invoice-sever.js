@@ -18,14 +18,16 @@ const pool = new Pool({
 // Lấy dữ liệu từ bảng invoice_table
 app.get('/Invoice', async (req, res) => {
     let kieu_yeu_cau = req.query.yeucau;//Lấy giá trị thuột tính type của request từ client gán cho biến type
+    console.log("Yêu cầu = ",kieu_yeu_cau);
     let userid = req.query.userid; //Lấy ID của user
+    console.log("ID = ",userid);
     let so_id = req.query.invid;//lấy số ID của invoice
     console.log("Đã nhận được yêu cầu từ client - ip công khai");//báo trên log là đã nhận được 1 yêu cầu từ client
     if (kieu_yeu_cau ==='layhoadon') {
         try {
             
-            
-            const result = await pool.query('SELECT invoice_id,invoice_title,customer, SUM(price*quantity) AS amount,invoice_date FROM invoice_table WHERE user_id ='+userid+' GROUP BY invoice_id,invoice_date,invoice_title,customer ORDER BY invoice_date DESC;');
+            query_string = "SELECT invoice_id,invoice_title,customer, SUM(price*quantity) AS amount,invoice_date FROM invoice_table WHERE user_id ='"+userid+"' GROUP BY invoice_id,invoice_date,invoice_title,customer ORDER BY invoice_date DESC;";
+            const result = await pool.query(query_string);
             res.status(201).json({ message: 'Lấy danh sách hóa đơn thành công' });
         } catch (err) {
             console.error(err);
