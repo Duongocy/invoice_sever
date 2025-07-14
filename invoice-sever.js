@@ -26,10 +26,10 @@ app.get('/Invoice', async (req, res) => {
             
             
             const result = await pool.query('SELECT invoice_id,invoice_title,customer, SUM(price*quantity) AS amount,invoice_date FROM invoice_table WHERE user_id ='+userid+' GROUP BY invoice_id,invoice_date,invoice_title,customer ORDER BY invoice_date DESC;');
-            res.json(result.rows);
+            res.status(201).json({ message: 'Lấy danh sách hóa đơn thành công' });
         } catch (err) {
             console.error(err);
-            res.status(500).send('Lỗi khi lấy dữ liệu');
+            res.status(500).json({ message: 'Không lấy được danh sách hóa đơn' });
         }
     }
     else if(kieu_yeu_cau === 'chitiethoadon'){
@@ -37,10 +37,10 @@ app.get('/Invoice', async (req, res) => {
             query_string = "SELECT product_name,quantity,price, SUM(price*quantity) AS amount FROM invoice_table WHERE invoice_id='" +so_id + "' group by product_name,quantity,price;"; 
             console.log(query_string);
             const result = await pool.query(query_string);
-            res.json(result.rows);
+            res.status(201).json({ message: 'Lấy chi tiết hóa đơn thành công' });
         } catch (err) {
             console.error(err);
-            res.status(500).send('Lỗi khi lấy dữ liệu');
+            res.status(500).json({ message: 'Không lấy được chi tiết hóa đơn' });
         }
     }
 });
