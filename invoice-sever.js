@@ -27,6 +27,7 @@ app.get('/Invoice', async (req, res) => {
         try {
             
             query_string = "SELECT invoice_id,invoice_title,customer, SUM(price*quantity) AS amount,invoice_date FROM invoice_table WHERE user_id ='"+userid+"' GROUP BY invoice_id,invoice_date,invoice_title,customer ORDER BY invoice_date DESC;";
+            console.log(query_string);
             const result = await pool.query(query_string);
             res.status(201).json({ message: 'Lấy danh sách hóa đơn thành công' });
         } catch (err) {
