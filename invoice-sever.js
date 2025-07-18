@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors'); // Import thư viện cors
 const { Pool } = require('pg');
+const tokenlib = require('jsonwebtoken');//khai báo thư viện jkt để tạo token cho mỗi lần đăng nhập
 
 const app = express();
 app.use(cors()); // Sử dụng middleware CORS
@@ -17,6 +18,15 @@ const pool = new Pool({
 
 // Lấy dữ liệu từ bảng invoice_table
 app.get('/Invoice', async (req, res) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader?.split(' ')[1];
+
+    if (!token) return res.sendStatus(401); //nếu không có token thì thoát luôn không thực hiện đoạn sau 
+    tokenlib.verify(token,'DuoNgocY', (err, user) => {//xác thực token
+        if (err) return res.sendStatus(403); //nếu token bị lỗi hoặc hết hạn cũng thoát luôn không thực hiện đoạn dưới
+
+    });
+    //thực hiện công việc cần khi đã xác thực token ok 
     let kieu_yeu_cau = req.query.yeucau;//Lấy giá trị thuột tính type của request từ client gán cho biến type
     let user_id = req.query.userid;
     let so_id = req.query.invid;//lấy số ID của invoice
@@ -46,6 +56,7 @@ app.get('/Invoice', async (req, res) => {
         }
     }
 });
+
 
 // Thêm dữ liệu vào bảng invoice_table
 app.post('/Invoice', async (req, res) => {
