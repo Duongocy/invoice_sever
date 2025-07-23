@@ -81,6 +81,11 @@ app.post('/Invoice', async (req, res) => {
     }
 });
 
+//1 luồng đơn giản để nhận tín hiệu ping từ trang web cron job (https://console.cron-job.org/jobs)giữ api trên render luôn thức
+app.get('/ping', (req, res) => {
+  res.send('pong!');
+});
+
 // Khởi động server
 const PORT = 3000;
 app.listen(PORT, () => {
