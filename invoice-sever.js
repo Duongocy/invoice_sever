@@ -9,11 +9,16 @@ app.use(express.json());
 
 // Cấu hình kết nối đến PostgreSQL
 const pool = new Pool({
-    user: 'postgres', // Thay thế bằng username của bạn
-    host: '123.19.121.187',//địa chỉ ip công khai của máy fujitsu 
-    database: 'Invoice',
-    password: '1!Ngaycuoicung', // Thay thế bằng password của bạn
-    port: 5432,
+    // user: 'postgres', // Thay thế bằng username của bạn
+    // host: '123.19.121.187',//địa chỉ ip công khai của máy fujitsu 
+    // database: 'Invoice',
+    // password: '1!Ngaycuoicung', // Thay thế bằng password của bạn
+    // port: 5432,
+
+    connectionString: 'postgresql://neondb_owner:npg_HoJmb5DBF6qG@ep-little-tree-a1x11z62-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require',
+    ssl: {
+        rejectUnauthorized: false // Neon dùng SSL
+    }
 });
 
 // Lấy dữ liệu từ bảng invoice_table
