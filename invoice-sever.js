@@ -63,7 +63,7 @@ app.get('/Invoice', async (req, res) => {
     else if (kieu_yeu_cau==='xoahoadon'){
             
             try {
-                query_string= "DELETE FROM invoice_table WHERE ivoice_id = '"+ so_id+"'";
+                query_string= "DELETE FROM invoice_table WHERE invoice_id = '"+ so_id+"'";
                 console.log(query_string);
                 const result = await pool.query(query_string);
                 res.json(result.rows);
