@@ -60,6 +60,18 @@ app.get('/Invoice', async (req, res) => {
             res.status(500).send('Lỗi khi lấy dữ liệu');
         }
     }
+    else if (kieu_yeu_cau==='xoahoadon'){
+            
+            try {
+                query_string= "DELETE FROM invoice_table WHERE ivoice_id = '"+ so_id+"'";
+                console.log(query_string);
+                const result = await pool.query(query_string);
+                res.json(result.rows);
+            } catch (err) {
+                console.error(err);
+                res.status(500).send('Lỗi khi lấy dữ liệu');
+            }
+    }
 });
 
 
