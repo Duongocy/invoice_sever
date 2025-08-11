@@ -81,6 +81,12 @@ app.post('/Invoice', async (req, res) => {
     console.log("Đã nhận được yêu cầu từ client");//báo trên log là đã nhận được 1 yêu cầu từ client
     // console.log(product_name,price,quantity);
     try {
+        const invoiceId = product_array[0].invoice_id; // Lấy invoice_id từ phần tử đầu
+        // Xóa các dòng dữ liệu cũ có invoice_id giống trong product_array
+        await pool.query(
+            'DELETE FROM invoice_table WHERE invoice_id = ANY($1)',
+            [invoiceId]
+        );
         results = [];
         for (product of product_array) {
             const { user_id, user_name, invoice_id, invoice_title, invoice_date, customer, product_name, price, quantity } = product;
