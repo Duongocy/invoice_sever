@@ -84,7 +84,7 @@ app.post('/Invoice', async (req, res) => {
         const invoiceId = product_array[0].invoice_id; // Lấy invoice_id từ phần tử đầu
         // Xóa các dòng dữ liệu cũ có invoice_id giống trong product_array
         await pool.query(
-            'DELETE FROM invoice_table WHERE invoice_id = ANY($1)',
+            'DELETE FROM invoice_table WHERE invoice_id = $1',
             [invoiceId]
         );
         results = [];
